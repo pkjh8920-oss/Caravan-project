@@ -1,0 +1,99 @@
+<h2 class="text-3xl font-bold mb-8 text-gray-800">내 예약 현황 🎒</h2>
+
+<div class="space-y-6">
+    <% if (myBookings.length === 0) { %>
+        <div class="text-center py-16 bg-white rounded-xl shadow-sm border border-gray-100">
+            <p class="text-5xl mb-4">📭</p>
+            <p class="text-xl text-gray-600 mb-6">아직 예약 내역이 없습니다.</p>
+            <a href="/" class="bg-blue-600 text-white px-6 py-3 rounded-full font-bold hover:bg-blue-700 transition">
+                여행지 찾아보기 →
+            </a>
+        </div>
+    <% } %>
+
+    <% myBookings.forEach(b => { %>
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 transition hover:shadow-md flex flex-col md:flex-row justify-between md:items-center gap-6 
+            <%= b.status === 'CONFIRMED' ? 'border-l-4 border-l-green-500' : (b.status === 'PENDING' ? 'border-l-4 border-l-yellow-400' : '') %>">
+            
+            <div class="flex-1">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="px-3 py-1 rounded-full text-xs font-bold 
+                        <%= b.status === 'CONFIRMED' ? 'bg-green-100 text-green-700' : 
+                           (b.status === 'PENDING' ? 'bg-yellow-100 text-yellow-700' : 
+                           (b.status === 'PAID' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600')) %>">
+                        <%= b.status %>
+                    </span>
+                    <span class="text-sm text-gray-400">예약번호 #<%= b.id %></span>
+                </div>
+                
+                <h3 class="font-bold text-xl text-gray-800 mb-1"><%= b.Caravan.name %></h3>
+                <p class="text-gray-600 flex items-center gap-2 text-sm">
+                    🗓️ <%= b.startDate %> ~ <%= b.endDate %>
+                </p>
+            </div>
+
+            <div class="text-right flex flex-col items-end gap-2">
+                <p class="text-gray-500 text-sm">총 결제금액</p>
+                <p class="text-2xl font-bold text-gray-900 mb-2">₩<%= b.totalPrice.toLocaleString() %></p>
+
+                <% if (b.status === 'CONFIRMED') { %>
+                    <form action="/booking/<%= b.id %>/pay" method="POST" class="payment-form">
+                        <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition flex items-center gap-2">
+                            💳 결제하기
+                        </button>
+                    </form>
+                    <p class="text-xs text-blue-600 font-medium animate-pulse">호스트 승인 완료! 결제가 가능합니다.</p>
+
+                <% } else if (b.status === 'PENDING') { %>
+                    <button disabled class="bg-gray-100 text-gray-400 px-6 py-3 rounded-lg font-bold cursor-not-allowed border">
+                        승인 대기중
+                    </button>
+
+                <% } else if (b.status === 'PAID') { %>
+                    <button disabled class="bg-blue-50 text-blue-600 px-6 py-3 rounded-lg font-bold cursor-not-allowed border border-blue-100 flex items-center gap-2">
+                        ✅ 결제 완료
+                    </button>
+                <% } %>
+            </div>
+        </div>
+    <% }) %>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.querySelectorAll('.payment-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // 진짜 전송 막기
+
+            // 1. 가짜 결제 모듈 로딩창
+            let timerInterval;
+            Swal.fire({
+                title: '결제 진행 중',
+                html: '안전한 결제를 위해 <b>N Pay</b> 보안 모듈을 불러옵니다.<br>잠시만 기다려주세요.',
+                timer: 2000, // 2초 딜레이
+                timerProgressBar: true,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            }).then((result) => {
+                // 2. 결제 성공 알림
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '결제 성공!',
+                        text: '예약이 정상적으로 확정되었습니다.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        // 3. 진짜 서버로 전송 (DB 업데이트)
+                        this.submit();
+                    });
+                }
+            });
+        });
+    });
+</script>

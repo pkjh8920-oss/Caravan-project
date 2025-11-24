@@ -1,0 +1,27 @@
+<%- include('layout_head') %>
+<div class="max-w-md mx-auto bg-white p-8 rounded shadow mt-10">
+    <h2 class="text-2xl font-bold mb-6 text-center">회원가입</h2>
+    <form action="/signup" method="POST" class="space-y-4">
+        <div>
+            <label class="block text-gray-700">이름</label>
+            <input type="text" name="name" required class="w-full border p-2 rounded">
+        </div>
+        <div>
+            <label class="block text-gray-700">이메일</label>
+            <input type="email" name="email" required class="w-full border p-2 rounded">
+        </div>
+        <div>
+            <label class="block text-gray-700">비밀번호</label>
+            <input type="password" name="password" required class="w-full border p-2 rounded">
+        </div>
+        <div>
+            <label class="block text-gray-700">역할 선택</label>
+            <select name="role" class="w-full border p-2 rounded">
+                <option value="GUEST">게스트 (여행자)</option>
+                <option value="HOST">호스트 (카라반 주인)</option>
+            </select>
+        </div>
+        <button class="w-full bg-green-600 text-white py-2 rounded font-bold hover:bg-green-700">가입하기</button>
+    </form>
+</div>
+</body></html>

@@ -1,0 +1,39 @@
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold">호스트 대시보드 🛠️</h2>
+    <a href="/host/create" class="bg-blue-600 text-white px-4 py-2 rounded font-bold">새 카라반 등록</a>
+</div>
+
+<h3 class="text-xl font-bold mb-4">내 카라반</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+    <% myCaravans.forEach(c => { %>
+        <div class="bg-white p-4 rounded shadow border">
+            <h4 class="font-bold"><%= c.name %></h4>
+            <p class="text-gray-600"><%= c.location %></p>
+        </div>
+    <% }) %>
+</div>
+
+<h3 class="text-xl font-bold mb-4">예약 요청</h3>
+<div class="bg-white shadow rounded-lg overflow-hidden">
+    <% reservations.forEach(r => { %>
+        <div class="border-b p-4 flex justify-between items-center">
+            <div>
+                <p class="font-bold"><%= r.Caravan.name %></p>
+                <p class="text-sm"><%= r.guest.name %> | <%= r.startDate %> ~ <%= r.endDate %></p>
+                <p class="text-sm font-bold <%= r.status === 'PENDING' ? 'text-yellow-600' : 'text-green-600' %>"><%= r.status %></p>
+            </div>
+            <% if (r.status === 'PENDING') { %>
+            <div class="flex gap-2">
+                <form action="/booking/<%= r.id %>/update" method="POST">
+                    <input type="hidden" name="status" value="CONFIRMED">
+                    <button class="bg-green-500 text-white px-3 py-1 rounded">승인</button>
+                </form>
+                <form action="/booking/<%= r.id %>/update" method="POST">
+                    <input type="hidden" name="status" value="CANCELLED">
+                    <button class="bg-red-500 text-white px-3 py-1 rounded">거절</button>
+                </form>
+            </div>
+            <% } %>
+        </div>
+    <% }) %>
+</div>

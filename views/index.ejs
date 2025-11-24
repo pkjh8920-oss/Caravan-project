@@ -1,0 +1,75 @@
+<%- include('layout_head') %>
+
+<div class="relative bg-gray-900 h-[500px] mb-12">
+    <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+         class="absolute inset-0 w-full h-full object-cover opacity-60">
+    
+    <div class="relative container mx-auto px-4 h-full flex flex-col justify-center items-center text-center text-white">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+            자연 속으로 떠나는 특별한 여행 🌲
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 drop-shadow-md text-gray-200">
+            나에게 딱 맞는 카라반을 찾아보세요.
+        </p>
+        <a href="#list" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition shadow-lg transform hover:scale-105">
+            카라반 둘러보기
+        </a>
+    </div>
+</div>
+
+<div id="list" class="container mx-auto px-4 mb-20">
+    <div class="flex justify-between items-end mb-6 border-b pb-4">
+        <div>
+            <h2 class="text-3xl font-bold text-gray-800">추천 카라반 🚐</h2>
+            <p class="text-gray-500 mt-1">게스트들이 사랑하는 인기 숙소입니다.</p>
+        </div>
+    </div>
+
+    <% if (caravans.length === 0) { %>
+        <div class="text-center py-20 bg-white rounded-xl shadow-sm border border-gray-100">
+            <p class="text-6xl mb-4">🚐💨</p>
+            <h3 class="text-xl font-bold text-gray-700">아직 등록된 카라반이 없어요!</h3>
+            <p class="text-gray-500 mt-2">호스트가 되어 첫 번째 카라반을 등록해보세요.</p>
+            <div class="mt-6">
+                <a href="/login" class="text-blue-600 font-bold hover:underline">로그인하고 등록하기 &rarr;</a>
+            </div>
+        </div>
+    <% } %>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <% caravans.forEach(c => { %>
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300 border border-gray-100 group">
+                <div class="relative h-64 overflow-hidden">
+                    <img src="<%= c.image %>" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-bold text-blue-600 shadow-sm">
+                        ₩<%= c.price.toLocaleString() %>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-xl mb-2 text-gray-800 truncate"><%= c.name %></h3>
+                    <p class="text-gray-500 text-sm mb-4 flex items-center gap-1">
+                        📍 <%= c.location %>
+                    </p>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                            👥 최대 <%= c.capacity %>인
+                        </span>
+                        <a href="/caravan/<%= c.id %>" class="text-blue-600 font-bold hover:text-blue-800">
+                            자세히 보기 &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<footer class="bg-gray-800 text-gray-400 py-10 mt-auto">
+    <div class="container mx-auto px-4 text-center">
+        <p class="font-bold text-white text-lg mb-2">🚐 CaravanShare</p>
+        <p class="text-sm">© 2025 CaravanShare Project. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
