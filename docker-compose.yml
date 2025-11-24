@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  caravan-app:
+    container_name: caravan-share-mvp
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./database.sqlite:/app/database.sqlite
+    restart: always
