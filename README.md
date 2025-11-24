@@ -6,7 +6,7 @@
 ---
 
 ## 🌐 배포 현황 (Deployment Status)
-현재 **Google Cloud Platform (GCE)** 환경에서 24시간 가동 중입니다.
+현재 **Google Cloud Platform (GCE)** 환경에 배포되어 **누구나 접속 가능**합니다.
 아래 링크를 통해 서비스를 직접 체험하실 수 있습니다.
 
 👉 **라이브 데모 접속:** [http://136.111.119.131:3000](http://136.111.119.131:3000)
@@ -31,7 +31,7 @@ AI IDE(Gemini)와의 협업(**바이브코딩**)을 통해 기획부터 클라�
 2. **예약 시스템 (Booking)**: 날짜 유효성 검사 및 **중복 예약 방지 로직**.
 3. **UX 고도화 (Advanced UX)**:
    - **Google Maps**: 카라반 위치 시각화 (Embed API).
-   - **Mock Payment**: 가상 PG사(N Pay) 결제 시뮬레이션 및 영수증 처리.
+   - **Mock Payment**: 가상 PG사 결제 시뮬레이션 및 영수증 처리.
    - **Interactive Dashboard**: 실시간 예약 상태(승인/결제/확정) 관리.
 
 ## 📂 시스템 설계 문서 (Architecture Docs)
