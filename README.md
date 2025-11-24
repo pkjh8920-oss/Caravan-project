@@ -1,37 +1,51 @@
 # 🚐 CaravanShare (카라반 공유 플랫폼)
 
 > **2025-2 Open Source Software Project**
-> 호스트와 게스트를 연결하는 P2P 카라반 공유 서비스 MVP
+> 호스트와 게스트를 연결하는 P2P 카라반 공유 서비스 (AI Vibe Coding Project)
+
+---
+
+## 🌐 배포 현황 (Deployment Status)
+현재 **Google Cloud Platform (GCE)** 환경에서 24시간 가동 중입니다.
+아래 링크를 통해 서비스를 직접 체험하실 수 있습니다.
+
+👉 **라이브 데모 접속:** [http://136.111.119.131:3000](http://136.111.119.131:3000)
+
+---
 
 ## 📖 프로젝트 개요
 **CaravanShare**는 유휴 자산인 카라반을 활용하여 수익을 창출하려는 **호스트**와, 특별한 캠핑 경험을 원하는 **게스트**를 연결해주는 웹 플랫폼입니다.
-AI IDE(Gemini/Cursor)를 활용한 **바이브코딩(Vibe Coding)** 기법으로 빠르게 MVP를 구축했습니다.
+AI IDE(Gemini)와의 협업(**바이브코딩**)을 통해 기획부터 클라우드 배포까지 빠르게 구축된 MVP(Minimum Viable Product)입니다.
 
-## 🛠 사용 기술 (Tech Stack)
-- **Backend:** Node.js, Express
-- **Frontend:** EJS, Tailwind CSS
-- **Database:** SQLite (Sequelize ORM)
-- **Deployment:** AWS EC2
-- **Tools:** GitHub, VS Code
+## 🛠 기술 스택 (Tech Stack)
+| 분류 | 기술 |
+|---|---|
+| **Frontend** | EJS, Tailwind CSS, SweetAlert2 |
+| **Backend** | Node.js, Express (MVC Pattern) |
+| **Database** | SQLite (Sequelize ORM) |
+| **Infra** | Google Cloud Platform (Compute Engine), Docker |
+| **DevOps** | Git, GitHub, Nohup (Process Manager) |
 
-## ✨ 주요 기능 (Key Features)
-1. **사용자 관리 (Auth)**
-   - 호스트/게스트 역할 구분 회원가입 및 로그인
-   - 세션(Session) 기반 인증 유지
-2. **카라반 관리 (Host)**
-   - 카라반 등록, 수정 및 관리 대시보드
-   - 예약 요청 승인/거절 시스템
-3. **예약 및 결제 (Guest)**
-   - 날짜 선택 및 중복 예약 방지 로직
-   - 실시간 예약 상태 확인 (승인 대기 -> 결제 대기 -> 예약 확정)
-   - **가상 결제 모듈(PG)** 시뮬레이션 및 영수증 처리
-4. **UX/UI 고도화**
-   - 구글 맵(Google Maps) 연동 위치 정보 제공
-   - 반응형 디자인 (Mobile/Desktop)
+## ✨ 핵심 기능 (Key Features)
+1. **사용자 관리 (Auth)**: 호스트/게스트 역할 분리 및 세션 기반 인증.
+2. **예약 시스템 (Booking)**: 날짜 유효성 검사 및 **중복 예약 방지 로직**.
+3. **UX 고도화 (Advanced UX)**:
+   - **Google Maps**: 카라반 위치 시각화 (Embed API).
+   - **Mock Payment**: 가상 PG사(N Pay) 결제 시뮬레이션 및 영수증 처리.
+   - **Interactive Dashboard**: 실시간 예약 상태(승인/결제/확정) 관리.
 
-## 🚀 설치 및 실행 방법 (Installation)
+## 📂 시스템 설계 문서 (Architecture Docs)
+본 프로젝트는 단순 구현을 넘어, 확장성과 운영 효율성을 고려하여 설계되었습니다.
+상세 내용은 아래 기술 문서를 참고해 주세요.
 
-### 1. 프로젝트 클론
+- [🚀 배포 가이드 (DEPLOYMENT.md)](./DEPLOYMENT.md)
+- [🛡️ 고가용성 및 확장성 설계 (HIGH_AVAILABILITY.md)](./HIGH_AVAILABILITY.md)
+- [🏕️ 사용자 인터랙션 흐름도 (CAMPSITE_USER_INTERACTION.md)](./CAMPSITE_USER_INTERACTION.md)
+- [⚡ CDN 및 이미지 최적화 전략 (CDN_DEPLOYMENT.md)](./CDN_DEPLOYMENT.md)
+
+## 🚀 로컬 실행 방법 (Installation)
+
+**1. 프로젝트 클론**
 ```bash
 git clone [https://github.com/pkjh8920-oss/Caravan-project.git](https://github.com/pkjh8920-oss/Caravan-project.git)
 cd Caravan-project
